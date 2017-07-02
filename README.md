@@ -1,0 +1,1 @@
+ocr_space_api_wrapper
