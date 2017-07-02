@@ -1,1 +1,1 @@
-ocr_space_api_wrapper
+Python module for using https://ocr.space API.
