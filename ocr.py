@@ -1,6 +1,4 @@
 import requests
-import configs
-from pprint import pprint
 
 
 class OCRSpaceLanguage:
@@ -71,8 +69,3 @@ class OCRSpace:
         return r.json()
 
 
-if __name__ == '__main__':
-    chinese_ocr = OCRSpace(api_key=configs.ocr.ocr_space_api_key, language=OCRSpaceLanguage.Chinese_Simplified)
-    # for url in urls[:1]:
-    #     pprint(chinese_ocr.ocr_url(url))
-    pprint(chinese_ocr.ocr_file(configs.general.static_dir_path+'/p1/images/shop_6120f4bac9ff619deb09b0b35ff22e24.jpeg'))
