@@ -30,7 +30,7 @@ class OCRSpaceLanguage:
 
 class OCRSpace:
     def __init__(self, api_key, language=OCRSpaceLanguage.English):
-        """ ocr.space API wrapper
+        ""
         :param api_key: API key string
         :param language: document language
         """
@@ -43,7 +43,8 @@ class OCRSpace:
         }
 
     def ocr_file(self, filename):
-        """ OCR.space API request with local file
+        """
+        Process image from a local path.
         :param filename: Your file path & name
         :return: Result in JSON format
         """
@@ -56,7 +57,8 @@ class OCRSpace:
         return r.json()
 
     def ocr_url(self, url):
-        """ OCR.space API request with remote file
+        """
+        Process an image at a given URL.
         :param url: Image url
         :return: Result in JSON format.
         """
@@ -67,5 +69,3 @@ class OCRSpace:
             data=data,
         )
         return r.json()
-
-
