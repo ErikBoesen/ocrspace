@@ -30,7 +30,7 @@ class OCRSpaceLanguage:
 
 class OCRSpace:
     def __init__(self, api_key, language=OCRSpaceLanguage.English):
-        ""
+        """
         :param api_key: API key string
         :param language: document language
         """
