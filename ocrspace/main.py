@@ -1,7 +1,7 @@
 import requests
 
 
-class OCRSpaceLanguage:
+class Language:
     Arabic = 'ara'
     Bulgarian = 'bul'
     Chinese_Simplified = 'chs'
@@ -28,8 +28,8 @@ class OCRSpaceLanguage:
     Turkish = 'tur'
 
 
-class OCRSpace:
-    def __init__(self, api_key, language=OCRSpaceLanguage.English):
+class API:
+    def __init__(self, api_key='helloworld', language=Language.English):
         """
         :param api_key: API key string
         :param language: document language
