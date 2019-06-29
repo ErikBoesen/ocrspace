@@ -42,6 +42,12 @@ class API:
             'language': self.language,
         }
 
+    def _parse(self, raw):
+        if raw['IsErroredOnProcessing']:
+            raise Exception(raw['ErrorMessage'][0])
+        return raw['ParsedResults'][0]['ParsedText']
+
+
     def ocr_file(self, filename):
         """
         Process image from a local path.
@@ -54,7 +60,7 @@ class API:
                 files={filename: f},
                 data=self.payload,
             )
-        return r.json()
+        return self._parse(r.json())
 
     def ocr_url(self, url):
         """
@@ -68,4 +74,4 @@ class API:
             'https://api.ocr.space/parse/image',
             data=data,
         )
-        return r.json()
+        return self._parse(r.json())
