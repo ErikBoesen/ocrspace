@@ -43,6 +43,8 @@ class API:
         }
 
     def _parse(self, raw):
+        if type(raw) == str:
+            raise Exception(raw)
         if raw['IsErroredOnProcessing']:
             raise Exception(raw['ErrorMessage'][0])
         return raw['ParsedResults'][0]['ParsedText']
