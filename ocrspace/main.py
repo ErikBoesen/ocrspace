@@ -50,13 +50,13 @@ class API:
         return raw['ParsedResults'][0]['ParsedText']
 
 
-    def ocr_file(self, filename):
+    def ocr_file(self, fp):
         """
         Process image from a local path.
-        :param filename: Your file path & name
+        :param fp: A path or pointer to your file
         :return: Result in JSON format
         """
-        with open(filename, 'rb') as f:
+        with (open(fp, 'rb') if type(fp) == str else fp) as f:
             r = requests.post(
                 'https://api.ocr.space/parse/image',
                 files={filename: f},
