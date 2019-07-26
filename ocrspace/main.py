@@ -59,7 +59,7 @@ class API:
         with (open(fp, 'rb') if type(fp) == str else fp) as f:
             r = requests.post(
                 'https://api.ocr.space/parse/image',
-                files={filename: f},
+                files={'filename': f},
                 data=self.payload,
             )
         return self._parse(r.json())
