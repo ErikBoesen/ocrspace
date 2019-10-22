@@ -29,17 +29,22 @@ class Language:
 
 
 class API:
-    def __init__(self, api_key='helloworld', language=Language.English):
+    def __init__(
+        self, api_key='helloworld', language=Language.English, isTable=False
+    ):
         """
         :param api_key: API key string
         :param language: document language
+        :param isTable: line-by-line parsing
         """
         self.api_key = api_key
         self.language = language
+        self.isTable = isTable
         self.payload = {
             'isOverlayRequired': True,
             'apikey': self.api_key,
             'language': self.language,
+            'isTable': self.isTable,
         }
 
     def _parse(self, raw):
