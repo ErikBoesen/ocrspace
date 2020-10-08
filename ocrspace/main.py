@@ -79,3 +79,17 @@ class API:
             data=data,
         )
         return self._parse(r.json())
+
+    def ocr_base64(self, base64image):
+        """
+        Process an image given as base64.
+        :param base64image: Image represented as Base64
+        :return: Result in JSON format.
+        """
+        data = self.payload
+        data['base64Image'] = base64image
+        r = requests.post(
+            'https://api.ocr.space/parse/image',
+            data=data,
+        )
+        return self._parse(r.json())
