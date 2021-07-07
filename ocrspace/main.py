@@ -30,17 +30,19 @@ class Language:
 
 class API:
     def __init__(
-        self, api_key='helloworld', language=Language.English, **kwargs
+        self, api_key='helloworld', language=Language.English, ocrengine=1, **kwargs
     ):
         """
         :param api_key: API key string
         :param language: document language
+        :param ocrengine: ocr engine to use
         :param **kwargs: other settings to API
         """
         self.payload = {
             'isOverlayRequired': True,
             'apikey': api_key,
             'language': language,
+            'OCREngine': ocrengine,
             **kwargs
         }
 
