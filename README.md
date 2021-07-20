@@ -13,8 +13,8 @@ First you'll need to import and instantiate the API wrapper:
 ```py
 import ocrspace
 api = ocrspace.API()
-# Or if you have an API key or desired language, pass those:
-api = ocrspace.API('Insert key here', ocrspace.Language.Croatian)
+# Or if you have a custom API host, API key or desired language, pass those:
+api = ocrspace.API(endpoint='https://example.host', api_key='Insert key here', language=ocrspace.Language.Croatian)
 ```
 To perform recognition on an image hosted at some URL:
 ```py

@@ -30,13 +30,19 @@ class Language:
 
 class API:
     def __init__(
-        self, api_key='helloworld', language=Language.English, **kwargs
+        self,
+        endpoint='https://api.ocr.space/parse/image',
+        api_key='helloworld',
+        language=Language.English,
+        **kwargs,
     ):
         """
+        :param endpoint: API endpoint to contact
         :param api_key: API key string
         :param language: document language
         :param **kwargs: other settings to API
         """
+        self.endpoint = endpoint
         self.payload = {
             'isOverlayRequired': True,
             'apikey': api_key,
@@ -60,7 +66,7 @@ class API:
         """
         with (open(fp, 'rb') if type(fp) == str else fp) as f:
             r = requests.post(
-                'https://api.ocr.space/parse/image',
+                self.endpoint,
                 files={'filename': f},
                 data=self.payload,
             )
@@ -75,7 +81,7 @@ class API:
         data = self.payload
         data['url'] = url
         r = requests.post(
-            'https://api.ocr.space/parse/image',
+            self.endpoint,
             data=data,
         )
         return self._parse(r.json())
@@ -89,7 +95,7 @@ class API:
         data = self.payload
         data['base64Image'] = base64image
         r = requests.post(
-            'https://api.ocr.space/parse/image',
+            self.endpoint,
             data=data,
         )
         return self._parse(r.json())
