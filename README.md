@@ -24,7 +24,7 @@ api_key = "apikey retrieved from Free OCR API"
 
 api = ocrspace.API(api_key=api_key)
 # Or if you have a custom API host, API key or desired language, pass those:
-api = ocrspace.API(endpoint='https://example.host', api_key='Insert key here', language=ocrspace.Language.Croatian)
+api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian)
 ```
 
 If you wish to change the OCR engine used, you'll have to import the enum class OCREngine_VAL from ocrspace and pass the value of OCREngine_VAL.val_2 to the api instantiation. By default it uses OCREngine_VAL.val_1:
@@ -37,7 +37,7 @@ api_key = "apikey retrieved from Free OCR API"
 
 api = ocrspace.API(api_key=api_key, ocrengine=OCREngine_VAL.val_2)
 # Or if you have a custom API host, API key or desired language, pass those:
-api = ocrspace.API(endpoint='https://example.host', api_key='Insert key here', language=ocrspace.Language.Croatian, ocrengine=OCREngine_VAL.val_2)
+api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian, ocrengine=OCREngine_VAL.val_2)
 ```
 
 To perform recognition on an image hosted at some URL:
