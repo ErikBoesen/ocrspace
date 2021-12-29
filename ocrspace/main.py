@@ -63,7 +63,7 @@ class API:
             )
         if ocrengine.value != 1 and ocrengine.value != 2:
             raise Exception(
-                "the value of ocrengine must be either 1 or 2, import & use OCREngine_VAL"
+                "the value of ocrengine must be either 1 or 2, import & use ocrspace.OCREngine_VAL"
             )
         self.endpoint = endpoint
         self.payload = {
