@@ -1,8 +1,12 @@
 import ocrspace
+from ocrspace import OCREngine_VAL
 import requests
 
-
+# api with the default ocrengine aka engine 1
 api = ocrspace.API()
+
+# api with engine 2
+api_with_engine_two = ocrspace.API(ocrengine=OCREngine_VAL.engine_2)
 TEST_IMAGE_URL = 'https://images-na.ssl-images-amazon.com/images/I/71ovNJN1URL._SL1244_.jpg'
 
 print('Testing URL-based OCR:')

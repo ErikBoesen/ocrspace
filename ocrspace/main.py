@@ -1,4 +1,5 @@
 import requests
+from enum import (Enum, unique)
 
 
 class Language:
@@ -28,25 +29,48 @@ class Language:
     Turkish = 'tur'
 
 
+@unique
+class OCREngine_VAL(Enum):
+    """
+    OCRengine_VAL: the OCRengine to use, values can only be 1 or 2
+
+    Args:
+        Enum: python's generic enumeration that is used to define new enumerations.
+    """
+    engine_1 = 1
+    engine_2 = 2
+
+
 class API:
     def __init__(
         self,
         endpoint='https://api.ocr.space/parse/image',
         api_key='helloworld',
         language=Language.English,
+        ocrengine=OCREngine_VAL.engine_1,
         **kwargs,
     ):
         """
         :param endpoint: API endpoint to contact
         :param api_key: API key string
         :param language: document language
+        :param ocrengine: ocr engine to use
         :param **kwargs: other settings to API
         """
+        if not isinstance(ocrengine, OCREngine_VAL):
+            raise ValueError(
+                "the value of ocrengine must be an instance of OCREngine_VAL enum class"
+            )
+        if ocrengine.value != 1 and ocrengine.value != 2:
+            raise Exception(
+                "the value of ocrengine must be either 1 or 2, import & use OCREngine_VAL"
+            )
         self.endpoint = endpoint
         self.payload = {
             'isOverlayRequired': True,
             'apikey': api_key,
             'language': language,
+            'OCREngine': ocrengine.value,
             **kwargs
         }
 
@@ -56,7 +80,6 @@ class API:
         if raw['IsErroredOnProcessing']:
             raise Exception(raw['ErrorMessage'][0])
         return raw['ParsedResults'][0]['ParsedText']
-
 
     def ocr_file(self, fp):
         """
