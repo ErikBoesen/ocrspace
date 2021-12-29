@@ -58,11 +58,11 @@ class API:
         :param **kwargs: other settings to API
         """
         if not isinstance(ocrengine, OCREngine_VAL):
-            raise ValueError(
+            raise TypeError(
                 "ocrengine must be an instance of OCREngine_VAL enum class"
             )
         if ocrengine.value != 1 and ocrengine.value != 2:
-            raise Exception(
+            raise ValueError(
                 "the value of ocrengine must be either 1 or 2, import & use ocrspace.OCREngine_VAL"
             )
         self.endpoint = endpoint
