@@ -12,21 +12,30 @@ pip install ocrspace
 
 ## Use
 
+Before anything else, you need to get your apikey from [Free OCR API](https://ocr.space/OCRAPI) otherwise the default apikey -- i.e **helloworld** -- will be used and according to the developers of [Free OCR API](https://ocr.space/faq#span12):
+> This key is great for a quick test, but do not use it in your project, as it is severely rate limited.
+
 First you'll need to import and instantiate the API wrapper:
 
 ```python
 import ocrspace
-api = ocrspace.API()
+
+api_key = "apikey retrieved from Free OCR API"
+
+api = ocrspace.API(api_key=api_key)
 # Or if you have a custom API host, API key or desired language, pass those:
 api = ocrspace.API(endpoint='https://example.host', api_key='Insert key here', language=ocrspace.Language.Croatian)
 ```
 
-If you wish to change the OCR used, you'll have to import the enum class OCREngine_VAL from ocrspace and pass the value of OCREngine_VAL.val_2 to the api instantiation. By default it uses OCREngine_VAL.val_1:
+If you wish to change the OCR engine used, you'll have to import the enum class OCREngine_VAL from ocrspace and pass the value of OCREngine_VAL.val_2 to the api instantiation. By default it uses OCREngine_VAL.val_1:
 
 ```python
 import ocrspace
 from ocrspace import OCREngine_VAL
-api = ocrspace.API(ocrengine=OCREngine_VAL.val_2)
+
+api_key = "apikey retrieved from Free OCR API"
+
+api = ocrspace.API(api_key=api_key, ocrengine=OCREngine_VAL.val_2)
 # Or if you have a custom API host, API key or desired language, pass those:
 api = ocrspace.API(endpoint='https://example.host', api_key='Insert key here', language=ocrspace.Language.Croatian, ocrengine=OCREngine_VAL.val_2)
 ```
