@@ -81,6 +81,42 @@ class API:
             raise Exception(raw['ErrorMessage'][0])
         return raw['ParsedResults'][0]['ParsedText']
 
+    def query_api(self, url_data=None, pic_file=None):
+        """
+        Process the provided parameter.
+        :param url_data: Either an Image url or base64image
+        :param pic_file: A path or pointer to image file
+        :return: Result in JSON format
+        :raise: request.exceptions or general Exception
+        """
+        try:
+            if pic_file:
+                r = requests.post(
+                    self.endpoint,
+                    files={'filename': pic_file},
+                    data=self.payload,
+                    timeout=30
+                )
+            if url_data:
+                r = requests.post(
+                    self.endpoint,
+                    data=url_data,
+                    timeout=30
+                )
+            r.raise_for_status()
+        except requests.exceptions.Timeout as time_out:
+            raise time_out
+        except requests.exceptions.TooManyRedirects as too_man_redirects:
+            raise too_man_redirects
+        except requests.exceptions.HTTPError as http_error:
+            raise http_error
+        except requests.exceptions.RequestException as request_exception:
+            raise request_exception
+        except Exception as e:
+            raise e
+        else:
+            return self._parse(r.json())
+
     def ocr_file(self, fp):
         """
         Process image from a local path.
@@ -88,12 +124,7 @@ class API:
         :return: Result in JSON format
         """
         with (open(fp, 'rb') if type(fp) == str else fp) as f:
-            r = requests.post(
-                self.endpoint,
-                files={'filename': f},
-                data=self.payload,
-            )
-        return self._parse(r.json())
+            return self.query_api(pic_file=f)
 
     def ocr_url(self, url):
         """
@@ -103,11 +134,7 @@ class API:
         """
         data = self.payload
         data['url'] = url
-        r = requests.post(
-            self.endpoint,
-            data=data,
-        )
-        return self._parse(r.json())
+        return self.query_api(url_data=data)
 
     def ocr_base64(self, base64image):
         """
@@ -117,8 +144,4 @@ class API:
         """
         data = self.payload
         data['base64Image'] = base64image
-        r = requests.post(
-            self.endpoint,
-            data=data,
-        )
-        return self._parse(r.json())
+        return self.query_api(url_data=data)
