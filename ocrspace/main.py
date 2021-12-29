@@ -59,7 +59,7 @@ class API:
         """
         if not isinstance(ocrengine, OCREngine_VAL):
             raise ValueError(
-                "the value of ocrengine must be an instance of OCREngine_VAL enum class"
+                "ocrengine must be an instance of OCREngine_VAL enum class"
             )
         if ocrengine.value != 1 and ocrengine.value != 2:
             raise Exception(
