@@ -30,15 +30,12 @@ class Language:
 
 
 @unique
-class OCREngine_VAL(Enum):
+class Engine(Enum):
     """
-    OCRengine_VAL: the OCRengine to use, values can only be 1 or 2
-
-    Args:
-        Enum: python's generic enumeration that is used to define new enumerations.
+    Engine: Enum representing the OCR engine to use
     """
-    engine_1 = 1
-    engine_2 = 2
+    ENGINE_1 = 1
+    ENGINE_2 = 2
 
 
 class API:
@@ -47,7 +44,7 @@ class API:
         endpoint='https://api.ocr.space/parse/image',
         api_key='helloworld',
         language=Language.English,
-        ocrengine=OCREngine_VAL.engine_1,
+        engine=Engine.ENGINE_1,
         **kwargs,
     ):
         """
@@ -57,20 +54,20 @@ class API:
         :param ocrengine: ocr engine to use
         :param **kwargs: other settings to API
         """
-        if not isinstance(ocrengine, OCREngine_VAL):
+        if not isinstance(engine, Engine):
             raise TypeError(
-                "ocrengine must be an instance of OCREngine_VAL enum class"
+                "engine must be an instance of Engine"
             )
-        if ocrengine.value != 1 and ocrengine.value != 2:
+        if engine.value != 1 and engine.value != 2:
             raise ValueError(
-                "the value of ocrengine must be either 1 or 2, import & use ocrspace.OCREngine_VAL"
+                "the value of engine must be either 1 or 2, import & use ocrspace.Engine"
             )
         self.endpoint = endpoint
         self.payload = {
             'isOverlayRequired': True,
             'apikey': api_key,
             'language': language,
-            'OCREngine': ocrengine.value,
+            'OCREngine': engine.value,
             **kwargs
         }
 
@@ -81,19 +78,19 @@ class API:
             raise Exception(raw['ErrorMessage'][0])
         return raw['ParsedResults'][0]['ParsedText']
 
-    def query_api(self, url_data=None, pic_file=None):
+    def query_api(self, url_data=None, image_file=None):
         """
         Process the provided parameter.
         :param url_data: Either an Image url or base64image
-        :param pic_file: A path or pointer to image file
+        :param image_file: A path or file pointer to the image file
         :return: Result in JSON format
         :raise: request.exceptions or general Exception
         """
         try:
-            if pic_file:
+            if image_file:
                 r = requests.post(
                     self.endpoint,
-                    files={'filename': pic_file},
+                    files={'filename': image_file},
                     data=self.payload,
                     timeout=30
                 )
@@ -124,7 +121,7 @@ class API:
         :return: Result in JSON format
         """
         with (open(fp, 'rb') if type(fp) == str else fp) as f:
-            return self.query_api(pic_file=f)
+            return self.query_api(image_file=f)
 
     def ocr_url(self, url):
         """
