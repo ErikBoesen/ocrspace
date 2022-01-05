@@ -86,33 +86,21 @@ class API:
         :return: Result in JSON format
         :raise: request.exceptions or general Exception
         """
-        try:
-            if image_file:
-                r = requests.post(
-                    self.endpoint,
-                    files={'filename': image_file},
-                    data=self.payload,
-                    timeout=30
-                )
-            if url_data:
-                r = requests.post(
-                    self.endpoint,
-                    data=url_data,
-                    timeout=30
-                )
-            r.raise_for_status()
-        except requests.exceptions.Timeout as time_out:
-            raise time_out
-        except requests.exceptions.TooManyRedirects as too_man_redirects:
-            raise too_man_redirects
-        except requests.exceptions.HTTPError as http_error:
-            raise http_error
-        except requests.exceptions.RequestException as request_exception:
-            raise request_exception
-        except Exception as e:
-            raise e
-        else:
-            return self._parse(r.json())
+        if image_file:
+            r = requests.post(
+                self.endpoint,
+                files={'filename': image_file},
+                data=self.payload,
+                timeout=30
+            )
+        if url_data:
+            r = requests.post(
+                self.endpoint,
+                data=url_data,
+                timeout=30
+            )
+        r.raise_for_status()
+        return self._parse(r.json())
 
     def ocr_file(self, fp):
         """
