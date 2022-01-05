@@ -32,7 +32,7 @@ class Language:
 @unique
 class Engine(Enum):
     """
-    Engine: Enum representing the OCR engine to use
+    Enum representing the OCR engine to use
     """
     ENGINE_1 = 1
     ENGINE_2 = 2
@@ -51,7 +51,7 @@ class API:
         :param endpoint: API endpoint to contact
         :param api_key: API key string
         :param language: document language
-        :param ocrengine: ocr engine to use
+        :param engine: ocr engine to use
         :param **kwargs: other settings to API
         """
         if not isinstance(engine, Engine):
@@ -60,7 +60,7 @@ class API:
             )
         if engine.value != 1 and engine.value != 2:
             raise ValueError(
-                "the value of engine must be either 1 or 2, import & use ocrspace.Engine"
+                "the value of engine must be either 1 or 2, use ocrspace.Engine"
             )
         self.endpoint = endpoint
         self.payload = {
@@ -93,12 +93,14 @@ class API:
                 data=self.payload,
                 timeout=30
             )
-        if url_data:
+        elif url_data:
             r = requests.post(
                 self.endpoint,
                 data=url_data,
                 timeout=30
             )
+        else:
+            raise TypeError("either image_file or url_data must be provided")
         r.raise_for_status()
         return self._parse(r.json())
 

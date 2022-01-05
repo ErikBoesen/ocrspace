@@ -12,32 +12,31 @@ pip install ocrspace
 
 ## Use
 
-Before anything else, you need to get your apikey from [Free OCR API](https://ocr.space/OCRAPI) otherwise the default apikey -- i.e **helloworld** -- will be used and according to the developers of [Free OCR API](https://ocr.space/faq#span12):
-> This key is great for a quick test, but do not use it in your project, as it is severely rate limited.
+First, get an API key from [Free OCR API](https://ocr.space/OCRAPI), otherwise the default apikey ```helloworld``` will be used, which is [severely rate limited.](https://ocr.space/faq#span12)
 
 First you'll need to import and instantiate the API wrapper:
 
 ```python
 import ocrspace
 
-api_key = "apikey retrieved from Free OCR API"
+api_key = 'apikey retrieved from Free OCR API'
 
 api = ocrspace.API(api_key=api_key)
 # Or if you have a custom API host, API key or desired language, pass those:
 api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian)
 ```
 
-If you wish to change the OCR engine used, you'll have to import the enum class OCREngine_VAL from ocrspace and pass the value of OCREngine_VAL.val_2 to the api instantiation. By default it uses OCREngine_VAL.val_1:
+If you wish to change the OCR engine used, you'll have to import the enum class Engine from ocrspace and pass the value of Engine.ENGINE_2 to the api instantiation. By default it uses Engine.val_1:
 
 ```python
 import ocrspace
-from ocrspace import OCREngine_VAL
+from ocrspace import Engine
 
 api_key = "apikey retrieved from Free OCR API"
 
-api = ocrspace.API(api_key=api_key, ocrengine=OCREngine_VAL.val_2)
+api = ocrspace.API(api_key=api_key, engine=Engine.ENGINE_2)
 # Or if you have a custom API host, API key or desired language, pass those:
-api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian, ocrengine=OCREngine_VAL.val_2)
+api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian, engine=Engine.ENGINE_2)
 ```
 
 To perform recognition on an image hosted at some URL:
