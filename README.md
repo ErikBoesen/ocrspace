@@ -12,7 +12,7 @@ pip install ocrspace
 
 ## Use
 
-First, get an API key from [Free OCR API](https://ocr.space/OCRAPI), otherwise the default apikey ```helloworld``` will be used, which is [severely rate limited.](https://ocr.space/faq#span12)
+First, get an API key from [Free OCR API](https://ocr.space/OCRAPI), otherwise the default apikey `helloworld` will be used, which is [severely rate limited.](https://ocr.space/faq#span12)
 
 First you'll need to import and instantiate the API wrapper:
 
@@ -26,17 +26,16 @@ api = ocrspace.API(api_key=api_key)
 api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian)
 ```
 
-If you wish to change the OCR engine used, you'll have to import the enum class Engine from ocrspace and pass the value of Engine.ENGINE_2 to the api instantiation. By default it uses Engine.val_1:
+If you wish to change the OCR engine used, use the enum class Engine from ocrspace and pass the value of ocrspace.Engine.Engine.ENGINE_2 to the api instantiation. By default it uses ocrspace.Engine.Engine.ENGINE_1:
 
 ```python
 import ocrspace
-from ocrspace import Engine
 
 api_key = "apikey retrieved from Free OCR API"
 
-api = ocrspace.API(api_key=api_key, engine=Engine.ENGINE_2)
+api = ocrspace.API(api_key=api_key, engine=ocrspace.Engine.Engine.ENGINE_2)
 # Or if you have a custom API host, API key or desired language, pass those:
-api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian, engine=Engine.ENGINE_2)
+api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian, engine=ocrspace.Engine.Engine.ENGINE_2)
 ```
 
 To perform recognition on an image hosted at some URL:
