@@ -63,9 +63,9 @@ class API:
                 "the value of engine must be either 1 or 2, use ocrspace.Engine"
             )
         self.endpoint = endpoint
+        self.api_key = api_key
         self.payload = {
             'isOverlayRequired': True,
-            'apikey': api_key,
             'language': language,
             'OCREngine': engine.value,
             **kwargs
@@ -86,9 +86,11 @@ class API:
         :return: Result in JSON format
         :raise: request.exceptions or general Exception
         """
+
         if image_file:
             r = requests.post(
                 self.endpoint,
+                headers={'apikey': self.api_key},
                 files={'filename': image_file},
                 data=self.payload,
                 timeout=30
@@ -96,6 +98,7 @@ class API:
         elif url_data:
             r = requests.post(
                 self.endpoint,
+                headers={'apikey': self.api_key},
                 data=url_data,
                 timeout=30
             )
