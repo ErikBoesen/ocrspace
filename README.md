@@ -56,7 +56,7 @@ That's it! Look at [`example.py`](example.py) for a demonstration.
 
 ## Authorship
 
-This package was created by [Ali Najafi](https://github.com/a4fr) and is maintained by [Erik Boesen](https://github.com/ErikBoesen).
+This package was created by [Ali Najafi](<https://github.com/a4fr>) and is maintained by [Erik Boesen] (<https://github.com/ErikBoesen>) and Negassa Berhanu (<https://github.com/NegassaB>).
 
 ## License
 
