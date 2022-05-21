@@ -26,16 +26,16 @@ api = ocrspace.API(api_key=api_key)
 api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian)
 ```
 
-If you wish to change the OCR engine used, use the enum class Engine from ocrspace and pass the value of ocrspace.Engine.Engine.ENGINE_2 to the api instantiation. By default it uses ocrspace.Engine.Engine.ENGINE_1:
+If you wish to change the OCR engine used, use the enum class Engine from ocrspace and pass the value of ocrspace.Engine.ENGINE_2 to the api instantiation. By default it uses ocrspace.Engine.ENGINE_1:
 
 ```python
 import ocrspace
 
 api_key = "apikey retrieved from Free OCR API"
 
-api = ocrspace.API(api_key=api_key, engine=ocrspace.Engine.Engine.ENGINE_2)
+api = ocrspace.API(api_key=api_key, engine=ocrspace.Engine.ENGINE_2)
 # Or if you have a custom API host, API key or desired language, pass those:
-api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian, engine=ocrspace.Engine.Engine.ENGINE_2)
+api = ocrspace.API(endpoint='https://example.host', api_key=api_key, language=ocrspace.Language.Croatian, engine=ocrspace.Engine.ENGINE_2)
 ```
 
 To perform recognition on an image hosted at some URL:
@@ -56,7 +56,7 @@ That's it! Look at [`example.py`](example.py) for a demonstration.
 
 ## Authorship
 
-This package was created by [Ali Najafi](<https://github.com/a4fr>) and is maintained by [Erik Boesen] (<https://github.com/ErikBoesen>) and Negassa Berhanu (<https://github.com/NegassaB>).
+This package was created by [Ali Najafi](https://github.com/a4fr) and is maintained by [Erik Boesen](https://github.com/ErikBoesen) and [Negassa Berhanu](https://github.com/NegassaB).
 
 ## License
 
