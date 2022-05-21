@@ -1,5 +1,5 @@
 import requests
-from enum import (Enum, unique)
+from enum import IntEnum
 
 
 class Language:
@@ -29,8 +29,7 @@ class Language:
     Turkish = 'tur'
 
 
-@unique
-class Engine(Enum):
+class Engine(IntEnum):
     """
     Enum representing the OCR engine to use
     """
@@ -55,13 +54,9 @@ class API:
         :param **kwargs: other settings to API
         """
         if not isinstance(engine, Engine):
-            raise TypeError(
-                "engine must be an instance of Engine"
-            )
+            raise TypeError('engine must be an instance of Engine')
         if engine.value != 1 and engine.value != 2:
-            raise ValueError(
-                "the value of engine must be either 1 or 2, use ocrspace.Engine"
-            )
+            raise ValueError('the value of engine must be either 1 or 2, use ocrspace.Engine')
         self.endpoint = endpoint
         self.api_key = api_key
         self.payload = {
@@ -78,10 +73,10 @@ class API:
             raise Exception(raw['ErrorMessage'][0])
         return raw['ParsedResults'][0]['ParsedText']
 
-    def query_api(self, url_data=None, image_file=None):
+    def query_api(self, image_url=None, image_file=None):
         """
         Process the provided parameter.
-        :param url_data: Either an Image url or base64image
+        :param image_url: An Image url or base64image encoded string
         :param image_file: A path or file pointer to the image file
         :return: Result in JSON format
         :raise: request.exceptions or general Exception
@@ -95,15 +90,15 @@ class API:
                 data=self.payload,
                 timeout=30
             )
-        elif url_data:
+        elif image_url:
             r = requests.post(
                 self.endpoint,
                 headers={'apikey': self.api_key},
-                data=url_data,
+                data=image_url,
                 timeout=30
             )
         else:
-            raise TypeError("either image_file or url_data must be provided")
+            raise TypeError('either image_file or image_url must be provided')
         r.raise_for_status()
         return self._parse(r.json())
 
@@ -124,7 +119,7 @@ class API:
         """
         data = self.payload
         data['url'] = url
-        return self.query_api(url_data=data)
+        return self.query_api(image_url=data)
 
     def ocr_base64(self, base64image):
         """
@@ -134,4 +129,4 @@ class API:
         """
         data = self.payload
         data['base64Image'] = base64image
-        return self.query_api(url_data=data)
+        return self.query_api(image_url=data)
